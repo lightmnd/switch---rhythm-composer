@@ -1,0 +1,55 @@
+@mixin invisibleInput {
+  border: 0px;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: absolute;
+}
+
+.container {
+  display: grid;
+  row-gap: 15px;
+  padding: 20px;
+  background-color: #ffffffba;
+}
+
+.cellList {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.row {
+  & > *:nth-child(4n):not(:last-child) {
+    margin-right: 12px;
+  }
+  column-gap: 8px;
+  display: flex;
+}
+
+.cell {
+  $cell: &;
+  outline: solid #000 1px;
+  outline-offset: 2px;
+  cursor: pointer;
+  &__input {
+    @include invisibleInput();
+    &:checked + #{$cell}__content {
+      background-color: orange;
+    }
+    &:focus-visible + #{$cell}__content {
+      outline: solid orange 1px;
+      outline-offset: 2px;
+    }
+  }
+  &__content {
+    height: 40px;
+    width: 40px;
+    background-color: #000000ce;
+    border-radius: 1px;
+  }
+}
